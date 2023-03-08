@@ -3,11 +3,12 @@ class EmailsController < ApplicationController
 
   # GET /emails or /emails.json
   def index
-    @emails = Email.all
+    @emails = (Email.all).order(created_at: :desc)
   end
 
   # GET /emails/1 or /emails/1.json
   def show
+    @email = Email.find(params[:id])
   end
 
   # GET /emails/new
@@ -32,6 +33,7 @@ class EmailsController < ApplicationController
       else
         puts "email is failed"
       end
+
   end
 
   # PATCH/PUT /emails/1 or /emails/1.json

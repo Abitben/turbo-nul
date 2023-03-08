@@ -1,21 +1,26 @@
 <h1>Emails#index</h1>
 <p>Find me in app/views/emails/index.html.erb</p>
 <div class="container" >
-  <turbo-frame id="email1">
+  <%= turbo_frame_tag "email_turbo" do %>
     <table class="table">
-      <thead>
+      <thead class="table-dark">
         <tr>
-          <th scope="col">index</th>
+          <th scope="col"><%= button_to "Recevoir un email", { action: "create" }, class: "btn btn-primary" %>
+            <%= link_to "Refresh Emails", emails_path, class: "btn btn-primary" %>
+          </th>
           <th scope="col">Listes des emails</th>
           <th scope="col">Email sélectionné</th>
-          <th scope="col">Lien</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <%= render 'email' %>
-      </tbody>
-    </table>
-    <%= link_to "Refresh Emails", emails_path, class: "btn btn-primary" %>
-    <%= button_to "New Email", { action: "create" }, class: "btn btn-primary" %>
-  </turbo-frame>
-  <div>
+        <% @emails.each do |email|%>
+          <tr>
+            <%= render partial: 'email', locals: { email: email } %>
+            <td><%= link_to email.object, email_path(email.id) %></td>
+          </tr>
+        <%end%>
+        </tbody>
+      </table>
+    <% end %>
+    <div>
