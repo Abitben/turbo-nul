@@ -1,5 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
+
+<turbo-frame id='email_turbo'>
 <%= render @email %>
 
 <div>
@@ -8,4 +10,4 @@
 
   <%= button_to "Destroy this email", @email, method: :delete %>
 </div>
-
+</turbo-frame>

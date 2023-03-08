@@ -7,11 +7,8 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 10.times do
-  object = Faker::Lorem.sentence
-  body = Faker::Lorem.paragraphs(number: 3).join("\n")
-  
   Email.create!(
-    object: object,
-    body: body
-  )
+    object: Faker::Lorem.sentence,
+    body: Faker::Lorem.paragraphs(number: 3).join("\n"),
+    read: false)
 end
