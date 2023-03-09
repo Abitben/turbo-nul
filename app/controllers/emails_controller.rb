@@ -28,6 +28,7 @@ class EmailsController < ApplicationController
     @email = Email.new(object: Faker::Lorem.sentence,
       body: Faker::Lorem.paragraphs(number: 3).join("\n"))
 
+      
       if @email.save
         puts "email is success"
       else
@@ -49,9 +50,10 @@ class EmailsController < ApplicationController
 
   # DELETE /emails/1 or /emails/1.json
   def destroy
+    
     @email.destroy
 
-    refresh_emails
+    redirect_to emails_path
   end
 
   private
@@ -62,16 +64,15 @@ class EmailsController < ApplicationController
 
     def refresh_emails
       render turbo_stream:
-              turbo_stream.append("refresh_email",
+              turbo_stream.prepend("refresh_email",
                                   partial: "emailsindex",
                                   locals: { email: @email})
+              turbo_stream.update("email_counter", Email.count)     
     end
 
-    def remove_emails
+    def remove_email
       render turbo_stream:
-              turbo_stream.append("refresh_email",
-                                  partial: "emailsindex",
-                                  locals: { email: @email})
+              turbo_stream.remove(@email)
     end
 
     # Only allow a list of trusted parameters through.
