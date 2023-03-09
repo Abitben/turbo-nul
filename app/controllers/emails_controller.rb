@@ -34,6 +34,8 @@ class EmailsController < ApplicationController
         puts "email is failed"
       end
 
+      refresh_emails
+
   end
 
   # PATCH/PUT /emails/1 or /emails/1.json
@@ -49,7 +51,7 @@ class EmailsController < ApplicationController
   def destroy
     @email.destroy
 
-    redirect_to emails_path
+    refresh_emails
   end
 
   private
@@ -58,6 +60,19 @@ class EmailsController < ApplicationController
       @email = Email.find(params[:id])
     end
 
+    def refresh_emails
+      render turbo_stream:
+              turbo_stream.append("refresh_email",
+                                  partial: "emailsindex",
+                                  locals: { email: @email})
+    end
+
+    def remove_emails
+      render turbo_stream:
+              turbo_stream.append("refresh_email",
+                                  partial: "emailsindex",
+                                  locals: { email: @email})
+    end
 
     # Only allow a list of trusted parameters through.
     def email_params

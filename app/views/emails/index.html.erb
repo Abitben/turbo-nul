@@ -4,11 +4,11 @@
   <div class="mail-headers row border d-flex p-3">
     <h4>THPmail</h4>
     <%= button_to "Recevoir un email", { action: "create" }, class: "btn btn-primary"  %>
-    <%= link_to "Rafraichir", emails_path, class: "btn btn-primary" %>
   </div>
   <div class="mail-content row">
       <div class="mail-list col-4">
         <h2>Incoming Emails</h2>
+        <%= turbo_frame_tag "refresh_email"%>
         <ul>
           <% @emails.each do |email|%>
             <%= render partial: 'emailsindex', locals: { email: email } %>
