@@ -1,5 +1,18 @@
-<li>
-  <%= check_box_tag 'accept'%>
-  <%= link_to email.object, email_path(email.id), data: {"turbo-frame"=> "email_turbo"} %>
+<% if email.read == false%>
+<li class="new_emails">
+  <p>  <%= form_with(model: email, class:"form-check-inline") do |form| %>
+    <%= form.check_box :read, checked: email.read,data: {id: email.id, action: "emails#toggle"}%>
+  <% end %> 
+  <%= link_to email.object, email_path(email.id), data: {"turbo-frame"=> "email_turbo"} %></p>
+  <p><%= email.created_at%></p>
 </li>
+<% else%>
+<li>
+  <p> <%= form_with(model: email, class:"form-check-inline") do |form| %>
+    <%= form.check_box :read, checked: email.read,data: {id: email.id, action: "emails#toggle"}%>
+  <% end %> 
+  <%= link_to email.object, email_path(email.id), data: {"turbo-frame"=> "email_turbo"} %></p>
+  <p><%= email.created_at%></p>
+</li>
+<%end%>
 <hr>

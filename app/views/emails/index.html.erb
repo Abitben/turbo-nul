@@ -1,5 +1,12 @@
 <h1>Emails#index</h1>
 <p>Find me in app/views/emails/index.html.erb</p>
+
+<% if notice.present? %>
+  <p class="py-2 mt-2 w-25 rounded-pill bg-success bg-opacity-50 text-center">
+    <%= notice %>
+  </p>
+<% end %>
+
 <div class="container mail-container border">
   <div class="mail-headers row border d-flex p-3">
     <h4>THPmail</h4>
@@ -7,7 +14,7 @@
     <h2>
       Messages
       <turbo-frame id='email_counter'>
-        <%= Email.count %>
+        <%= @count %>
       </turbo-frame>
     </h2>
   </div>

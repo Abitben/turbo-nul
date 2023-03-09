@@ -8,6 +8,6 @@
   <%= link_to "Edit this email", edit_email_path(@email) %> |
   <%= link_to "Back to emails", emails_path %>
 
-  <%= button_to "Destroy this email", email_path(@email), method: :delete %>
+  <%= button_to "Supprimer", @email, method: :delete, data: { turbo_frame: "_top" }, class:"btn btn-danger" %>
 </div>
 </turbo-frame>
