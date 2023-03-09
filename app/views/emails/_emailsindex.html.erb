@@ -1,4 +1,5 @@
-<li><%= email.id%>
+<li>
         <%= check_box_tag 'accept'%>
-        <a href="<%=email_path(email.id)%>"><%= email.object%></a>
+        <%= link_to email.object, email_path(email.id), data: {"turbo-frame"=> "email_turbo"} %>
 </li>
+
